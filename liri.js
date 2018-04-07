@@ -31,3 +31,11 @@ function myTweets() {
 function spotifyThisSong() {
 
 }
+
+function movieThis() {
+
+}
+
+function dwis() {
+
+}
