@@ -12,8 +12,8 @@ var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
 
-var command = process.argv[2];
-var input = process.argv[3];
+// var command = process.argv[2];
+// var input = process.argv[3];
 
 
 function myTweets() {
@@ -34,15 +34,19 @@ function myTweets() {
 }
 
 function spotifyThisSong(song) {
+    song = process.argv[2];
+    if (song === "") {
+        song = "First Date";
+    }
     spotify.search({
-        type: 'track', query: 'song'
+        type: 'track', query: song
     }, function (error, data) {
         if (error) {
             console.log(error);
         } else {
             var songReport = data.tracks.items[0];
             console.log("----------------------------------------------");
-            console.log("Artist: " + songReport.artist[0].name);
+            console.log("Artist: " + songReport.artists[0].name);
             console.log("Title: " + songReport.name);
             console.log("Album: " + songReport.album.name);
             console.log("Preview URL: " + songReport.preview_url);
@@ -51,13 +55,25 @@ function spotifyThisSong(song) {
     });
 }
 
-function movieThis() {
-    var queryUrl = "http://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=" + omdbApi.key;
-    request(queryUrl, function (error, response, body) {
+function movieThis(movie) {
+    movie = process.argv[2];
+    var movieInfo = movie;
+    if (movieInfo === "") {
+        movieInfo = "The Godfather"
+    }
+    var omdbUrl = "http://www.omdbapi.com/?t=" + movieInfo + "&y=&plot=short&apikey=66bad2df"
+    request(omdbUrl, function (error, response, body) {
         if (!error && response.statusCode === 200) {
             var body = JSON.parse(body);
-
-
+            console.log("----------------------------------------------");
+            console.log("Title: " + body.Title);
+            console.log("Year Released: " + body.Year);
+            console.log("IMDB Rating: " + body.imdbRating);
+            console.log("Rotten Tomatoes Rating: " + body.Ratings[1].Value);
+            console.log("Produced In: " + body.Country);
+            console.log("Language: " + body.Language);
+            console.log("Plot: " + body.Plot);
+            console.log("Actors: " + body.Actors);
         }
     });
 }
