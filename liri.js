@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-var keys = require('./keys.js');
+var keys = require('./key.js');
 
 var request = require('request');
 var Spotify = require('node-spotify-api');
@@ -23,19 +23,48 @@ function myTweets() {
     };
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
         if (!error) {
-            console.log(tweets);
+            for (i = 0; i < tweets.length; i++) {
+                console.log("----------------------------------------------");
+                console.log("Tweet: " + tweets[i].text);
+                console.log("Date: " + tweets[i].created_at);
+                console.log("----------------------------------------------");
+            }
         }
     });
 }
 
-function spotifyThisSong() {
-
+function spotifyThisSong(song) {
+    spotify.search({
+        type: 'track', query: 'song'
+    }, function (error, data) {
+        if (error) {
+            console.log(error);
+        } else {
+            var songReport = data.tracks.items[0];
+            console.log("----------------------------------------------");
+            console.log("Artist: " + songReport.artist[0].name);
+            console.log("Title: " + songReport.name);
+            console.log("Album: " + songReport.album.name);
+            console.log("Preview URL: " + songReport.preview_url);
+            console.log("----------------------------------------------");
+        }
+    });
 }
 
 function movieThis() {
+    var queryUrl = "http://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=" + omdbApi.key;
+    request(queryUrl, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            var body = JSON.parse(body);
 
+
+        }
+    });
 }
+
 
 function dwis() {
 
 }
+
+spotifyThisSong();
