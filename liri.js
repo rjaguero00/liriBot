@@ -25,9 +25,25 @@ function myTweets() {
         if (!error) {
             for (i = 0; i < tweets.length; i++) {
                 console.log("----------------------------------------------");
+                console.log("Twitter Username: " + tweets[0].user.screen_name);
                 console.log("Tweet: " + tweets[i].text);
                 console.log("Date: " + tweets[i].created_at);
                 console.log("----------------------------------------------");
+
+                //Append to log.txt file.
+                fs.appendFile("log.txt", "\n" + "Twitter Username: " + tweets[0].user.screen_name + "\n" + "Tweet: " + tweets[i].text + "\n" + "Date: " + tweets[i].created_at, function (error) {
+
+                    // If an error was experienced we say it.
+                    if (error) {
+                        console.log(error);
+                    }
+
+                    // If no error is experienced, we'll log the phrase "Content Added" to our node console.
+                    else {
+                        console.log("Content Has Been Added!");
+                    }
+
+                });
             }
         }
     });
@@ -51,6 +67,21 @@ function spotifyThisSong(song) {
             console.log("Album: " + songReport.album.name);
             console.log("Preview URL: " + songReport.preview_url);
             console.log("----------------------------------------------");
+
+            //Append to log.txt file.
+            fs.appendFile("log.txt", "\n" + "Artist: " + songReport.artists[0].name + "\nTitle: " + songReport.name + "Album: " + songReport.album.name + "Preview URL: " + songReport.preview_url, function (error) {
+
+                // If an error was experienced we say it.
+                if (error) {
+                    console.log(error);
+                }
+
+                // If no error is experienced, we'll log the phrase "Content Added" to our node console.
+                else {
+                    console.log("Content Has Been Added!");
+                }
+
+            });
         }
     });
 }
@@ -74,6 +105,21 @@ function movieThis(movie) {
             console.log("Language: " + body.Language);
             console.log("Plot: " + body.Plot);
             console.log("Actors: " + body.Actors);
+
+            //Append to log.txt file.
+            fs.appendFile("log.txt", "\nTitle: " + body.Title + "\nYear Released: " + body.Year + "\nIMDB Rating: " + body.imdbRating + "\nRotten Tomatoes Rating: " + body.Ratings[1].Value + "\nProduced In: " + body.Country + "\nLanguage: " + body.Language + "\nPlot: " + body.Plot + "\nActors: " + body.Actors, function (error) {
+
+                // If an error was experienced we say it.
+                if (error) {
+                    console.log(error);
+                }
+
+                // If no error is experienced, we'll log the phrase "Content Added" to our node console.
+                else {
+                    console.log("Content Has Been Added!");
+                }
+
+            });
         }
     });
 }
@@ -83,4 +129,4 @@ function dwis() {
 
 }
 
-spotifyThisSong();
+myTweets();
