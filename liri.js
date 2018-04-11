@@ -19,13 +19,13 @@ selector(command, input);
 
 function selector(cmd, inp) {
     switch (cmd) {
-        case "myTweets":
+        case "my-tweets":
             myTweets();
             break;
-        case "spotify_this":
+        case "spotify-this-song":
             spotifyThisSong(inp);
             break;
-        case "movie_this":
+        case "movie-this":
             movieThis(inp);
             break;
         case "do-what-it-says":
@@ -158,17 +158,18 @@ function dwis() {
         }
 
         // We will then print the contents of data
-        console.log(data);
+        //console.log(data);
 
         // Then split it by commas (to make it more readable)
-        var dataArr = data.split(", ");
+        var dataArr = data.split(",");
 
         // We will then re-display the content as an array for later use.
-        console.log(dataArr);
-
+        //console.log(dataArr);
+        var c = dataArr[0];
+        var i = dataArr[1];
+        selector(c, i);
     });
-    selector(c, i);
+
 }
 
-dwis();
 
