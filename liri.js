@@ -12,9 +12,30 @@ var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
 
-// var command = process.argv[2];
-// var input = process.argv[3];
+var command = process.argv[2];
+var input = process.argv[3];
 
+selector(command, input);
+
+function selector(cmd, inp) {
+    switch (cmd) {
+        case "myTweets":
+            myTweets();
+            break;
+        case "spotify_this":
+            spotifyThisSong(inp);
+            break;
+        case "movie_this":
+            movieThis(inp);
+            break;
+        case "do-what-it-says":
+            dwis();
+            break;
+        default:
+            console.log("Please enter a command!");
+            break;
+    }
+}
 
 function myTweets() {
     var params = {
@@ -50,7 +71,7 @@ function myTweets() {
 }
 
 function spotifyThisSong(song) {
-    song = process.argv[2];
+    //song = process.argv[2];
     if (song === "") {
         song = "First Date";
     }
@@ -87,7 +108,7 @@ function spotifyThisSong(song) {
 }
 
 function movieThis(movie) {
-    movie = process.argv[2];
+    //movie = process.argv[2];
     var movieInfo = movie;
     if (movieInfo === "") {
         movieInfo = "The Godfather"
@@ -105,6 +126,7 @@ function movieThis(movie) {
             console.log("Language: " + body.Language);
             console.log("Plot: " + body.Plot);
             console.log("Actors: " + body.Actors);
+            console.log("----------------------------------------------");
 
             //Append to log.txt file.
             fs.appendFile("log.txt", "\nTitle: " + body.Title + "\nYear Released: " + body.Year + "\nIMDB Rating: " + body.imdbRating + "\nRotten Tomatoes Rating: " + body.Ratings[1].Value + "\nProduced In: " + body.Country + "\nLanguage: " + body.Language + "\nPlot: " + body.Plot + "\nActors: " + body.Actors, function (error) {
@@ -126,7 +148,27 @@ function movieThis(movie) {
 
 
 function dwis() {
+    //Open file and break apart string in to command and input
+    //inside of then for oepn file
+    fs.readFile("random.txt", "utf8", function (error, data) {
 
+        // If the code experiences any errors it will log the error to the console.
+        if (error) {
+            return console.log(error);
+        }
+
+        // We will then print the contents of data
+        console.log(data);
+
+        // Then split it by commas (to make it more readable)
+        var dataArr = data.split(", ");
+
+        // We will then re-display the content as an array for later use.
+        console.log(dataArr);
+
+    });
+    selector(c, i);
 }
 
-myTweets();
+dwis();
+
